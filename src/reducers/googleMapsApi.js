@@ -24,6 +24,15 @@ const googleMapsApi = (state = defaultState, action) => {
             }
         }
 
+        case actions.FETCH_ADDRESS_FROM_COORDINATES_FAILURE: {
+            console.error('FETCH_ADDRESS_FROM_COORDINATES_FAILURE')
+            return {
+                ...state,
+                done: true,
+                fetchError: true
+            }
+        }
+
         default:
             return state
     }

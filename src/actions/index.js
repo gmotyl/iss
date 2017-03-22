@@ -3,8 +3,10 @@
  */
 export const REQUEST_ISS_POSITION = 'REQUEST_ISS_POSITION'
 export const FETCH_ISS_POSITION_SUCCESS = 'FETCH_ISS_POSITION_SUCCESS'
+export const FETCH_ISS_POSITION_FAILURE = 'FETCH_ISS_POSITION_FAILURE'
 export const REQUEST_ADDRESS_FROM_COORDINATES = 'REQUEST_ADDRESS_FROM_COORDINATES'
 export const FETCH_ADDRESS_FROM_COORDINATES_SUCCESS = 'FETCH_ADDRESS_FROM_COORDINATES_SUCCESS'
+export const FETCH_ADDRESS_FROM_COORDINATES_FAILURE = 'FETCH_ADDRESS_FROM_COORDINATES_FAILURE'
 const GOOGLE_API_KEY = 'AIzaSyCJa8qqZssF6aSnzS4mOiM0gbbMyqg_zcc'
 const GOOGLE_API_STATUS_ZERO_RESULTS = 'ZERO_RESULTS'
 const GOOGLE_API_STATUS_OK = 'OK'
@@ -39,6 +41,18 @@ export const fetchAddressFromCoordinatesSuccess = (address) => {
     }
 }
 
+export const fetchIssPositionFailure = () => {
+    return {
+        type: FETCH_ISS_POSITION_FAILURE,
+    }
+}
+
+export const fetchAddressFromCoordinatesFailure = () => {
+    return {
+        type: FETCH_ADDRESS_FROM_COORDINATES_FAILURE,
+    }
+}
+
 export function fetchIssPosition() {
     return function (dispatch) {
         const headers = new Headers()
@@ -57,7 +71,8 @@ export function fetchIssPosition() {
                         dispatch(fetchIssPosition())
                     }, 5000)
                 }
-            );
+            )
+            .catch(ex => dispatch(fetchIssPositionFailure(ex)))
     }
 }
 
@@ -67,7 +82,6 @@ export function fetchAddressFromCoordinates(latitude, longitude) {
         const headers = new Headers()
         const myRequest = new Request('https://maps.googleapis.com/maps/api/geocode/json?language=en&latlng='
             + coordinateString + '&key=' + GOOGLE_API_KEY)
-        // const myRequest = new Request('https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=' + GOOGLE_API_KEY)
 
         dispatch(requestAddressFromCoordinates())
         headers.append('Accept', 'application/vnd.github.v3+json')
@@ -76,11 +90,12 @@ export function fetchAddressFromCoordinates(latitude, longitude) {
             .then(response => response.json())
             .then(
                 json => {
-                    GOOGLE_API_STATUS_OK == json.status
+                    GOOGLE_API_STATUS_OK === json.status
                         && dispatch(fetchAddressFromCoordinatesSuccess(json.results[0].formatted_address))
-                    GOOGLE_API_STATUS_ZERO_RESULTS == json.status
+                    GOOGLE_API_STATUS_ZERO_RESULTS === json.status
                         && dispatch(fetchAddressFromCoordinatesSuccess('unknown address (' + coordinateString +')'))
                 }
-            );
+            )
+            .catch(ex => dispatch(fetchAddressFromCoordinatesFailure(ex)))
     }
 }

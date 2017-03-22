@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import IssPositionAddress from '../components/IssPositionAddress';
 import React from 'react';
 
-class IssPosition extends React.Component {
+export class IssPosition extends React.Component {
     render() {
         return (
             <div>
