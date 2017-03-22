@@ -4,10 +4,12 @@
   "private": true,
   "devDependencies": {
     "enzyme": "^2.7.1",
-    "jest-enzyme": "^3.0.0",
+    "jest-enzyme": "^2.1.2",
+    "react-addons-test-utils": "^15.4.2",
     "react-scripts": "0.9.5"
   },
   "dependencies": {
+    "babel-preset-latest": "^6.24.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
@@ -16,7 +18,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "jest",
+    "test:coverage": "npm run test -- --coverage",
+    "test:verbose": "npm run test -- --verbose",
+    "test:watch": "npm run test -- --watch",
+    "test:watch:verbose": "npm run test -- --watch --verbose",
     "eject": "react-scripts eject"
   }
 }
