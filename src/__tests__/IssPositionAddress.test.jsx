@@ -1,6 +1,6 @@
+import IssPositionAddress from '../components/IssPositionAddress';
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import IssPositionAddress from '../components/IssPositionAddress';
 
 describe('A suite', function() {
     it('should render without throwing an error', function() {
