@@ -1,10 +1,9 @@
 import * as actions from '../actions/index';
 import React from 'react';
 import { connect } from 'react-redux';
-import { shallowWithStore } from 'enzyme-redux';
 import { createMockStore } from 'redux-test-utils';
 import { IssPosition } from '../containers/IssPosition';
-
+import { shallowWithStore } from 'enzyme-redux';
 
 describe('issPosition shallowWithStore', () => {
     describe('state', () => {
