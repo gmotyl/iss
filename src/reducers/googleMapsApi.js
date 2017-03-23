@@ -2,7 +2,8 @@ import * as actions from '../actions/index';
 
 const defaultState = {
     address: "",
-    done: false
+    done: false,
+    fetchError: false
 }
 
 /**
@@ -12,7 +13,7 @@ const defaultState = {
  */
 const googleMapsApi = (state = defaultState, action) => {
     switch (action.type) {
-        case actions.REQUEST_ISS_POSITION: {
+        case actions.REQUEST_ADDRESS_FROM_COORDINATES: {
             return { ...state,  done: false }
         }
 
@@ -25,7 +26,6 @@ const googleMapsApi = (state = defaultState, action) => {
         }
 
         case actions.FETCH_ADDRESS_FROM_COORDINATES_FAILURE: {
-            console.error('FETCH_ADDRESS_FROM_COORDINATES_FAILURE')
             return {
                 ...state,
                 done: true,

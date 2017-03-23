@@ -6,7 +6,7 @@ export class IssPosition extends React.Component {
     render() {
         return (
             <div>
-                    <IssPositionAddress position={ this.props.address }/>
+                <IssPositionAddress position={ this.props.address }/>
                 { this.props.done ?
                     ''
                     :
@@ -20,7 +20,7 @@ export class IssPosition extends React.Component {
 const mapStateToProps = (state) => {
     return {
         address: state.googleMapsApi.address,
-        done: state.googleMapsApi.done
+        done: (state.issApi.done && state.googleMapsApi.done)
     }
 }
 

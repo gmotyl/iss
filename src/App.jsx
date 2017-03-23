@@ -22,7 +22,7 @@ class App extends Component {
             <Provider store={store}>
                 <div className="App">
                     <div className="App-header">
-                        <h2>Where is ISS</h2>
+                        <h2>Where is International Space Station?</h2>
                     </div>
                     <IssPosition />
                 </div>

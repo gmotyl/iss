@@ -55,11 +55,11 @@ export const fetchAddressFromCoordinatesFailure = () => {
 
 export function fetchIssPosition() {
     return function (dispatch) {
-        const headers = new Headers()
+        // const headers = new Headers()
         const myRequest = new Request('https://api.wheretheiss.at/v1/satellites/25544')
 
         dispatch(requestIssPosition())
-        headers.append('Accept', 'application/vnd.github.v3+json')
+        // headers.append('Accept', 'application/vnd.github.v3+json')
 
         return fetch(myRequest)
             .then(response => response.json())
@@ -79,12 +79,16 @@ export function fetchIssPosition() {
 export function fetchAddressFromCoordinates(latitude, longitude) {
     return function (dispatch) {
         const coordinateString = latitude.toString() + ',' + longitude.toString()
-        const headers = new Headers()
-        const myRequest = new Request('https://maps.googleapis.com/maps/api/geocode/json?language=en&latlng='
-            + coordinateString + '&key=' + GOOGLE_API_KEY)
+        // const headers = new Headers()
+        const myRequest = new Request(
+            'https://maps.googleapis.com/maps/api/geocode/json?language=en&latlng='
+            + coordinateString
+            + '&key='
+            + GOOGLE_API_KEY
+        )
 
         dispatch(requestAddressFromCoordinates())
-        headers.append('Accept', 'application/vnd.github.v3+json')
+        // headers.append('Accept', 'application/vnd.github.v3+json')
 
         return fetch(myRequest)
             .then(response => response.json())
@@ -93,7 +97,9 @@ export function fetchAddressFromCoordinates(latitude, longitude) {
                     GOOGLE_API_STATUS_OK === json.status
                         && dispatch(fetchAddressFromCoordinatesSuccess(json.results[0].formatted_address))
                     GOOGLE_API_STATUS_ZERO_RESULTS === json.status
-                        && dispatch(fetchAddressFromCoordinatesSuccess('unknown address (' + coordinateString +')'))
+                        && dispatch(fetchAddressFromCoordinatesSuccess(
+                            'coordinates: ' + coordinateString + ' (address unknown)'
+                    ))
                 }
             )
             .catch(ex => dispatch(fetchAddressFromCoordinatesFailure(ex)))

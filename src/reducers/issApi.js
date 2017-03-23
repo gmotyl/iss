@@ -14,25 +14,24 @@ const defaultState = {
  */
 const issApi = (state = defaultState, action) => {
     switch (action.type) {
-        case actions.REQUEST_ADDRESS_FROM_COORDINATES: {
+        case actions.REQUEST_ISS_POSITION: {
             return {
                 ...state,
-                done: false,
-                fetchError: false
+                fetchError: false,
+                done: false
             }
         }
 
         case actions.FETCH_ISS_POSITION_SUCCESS: {
             return {
                 ...state,
-                done: true,
                 latitude: action.latitude,
                 longitude: action.longitude,
+                done: true,
             }
         }
 
         case actions.FETCH_ISS_POSITION_FAILURE: {
-            console.error('FETCH_ISS_POSITION_FAILURE')
             return {
                 ...state,
                 done: true,
